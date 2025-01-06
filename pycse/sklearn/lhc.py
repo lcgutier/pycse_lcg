@@ -30,7 +30,7 @@ class LatinSquare:
         self.labels = list(vars.keys())
         np.random.seed(self.seed)
 
-    def design(self, numfactors = None, shuffle=False):
+    def design(self, shuffle=False):
         """Returns a design matrix as a dataframe.
 
         Each row is an experiment to run. If shuffle is True, it is randomized.
@@ -51,6 +51,9 @@ class LatinSquare:
         print("Latin Hypercube matrix (lhs):", lhs)  # Debugging line
 
         expts = []
+        
+        # calculate the number of factors
+        numfactors = len(self.labels)
 
         # depending on the number of factors
         if numfactors == 3:
