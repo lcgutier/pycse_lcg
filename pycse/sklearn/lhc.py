@@ -38,7 +38,9 @@ class LatinSquare:
         """
         # Setup the design matrix
         lhs = []
-        levels = self.vars[self.labels[2]].copy()
+        # levels = self.vars[self.labels[2]].copy()  # fetching the list of levels for the third factor
+        levels = self.vars[self.labels[3]].copy()    # fetching the list of levels for the fourth factor
+
         if shuffle:
             np.random.shuffle(levels)
         lhs += [levels]
