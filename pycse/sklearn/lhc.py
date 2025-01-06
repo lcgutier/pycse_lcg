@@ -30,7 +30,7 @@ class LatinSquare:
         self.labels = list(vars.keys())
         np.random.seed(self.seed)
 
-    def design(self, shuffle=False):
+    def design(self, numfactors = None, shuffle=False):
         """Returns a design matrix as a dataframe.
 
         Each row is an experiment to run. If shuffle is True, it is randomized.
@@ -38,8 +38,7 @@ class LatinSquare:
         """
         # Setup the design matrix
         lhs = []
-        # levels = self.vars[self.labels[2]].copy()  # fetching the list of levels for the third factor
-        levels = self.vars[self.labels[3]].copy()    # fetching the list of levels for the fourth factor
+        levels = self.vars[self.labels[-1]].copy()    # fetching the list of levels for the last factor
 
         if shuffle:
             np.random.shuffle(levels)
@@ -48,14 +47,24 @@ class LatinSquare:
             levels = levels[1:] + levels[:1]
             lhs += [levels]
             
-        print("Levels for third factor:", levels)  # Debugging line
+        print("Last shuffled levels for the last factor:", levels)  # Debugging line
         print("Latin Hypercube matrix (lhs):", lhs)  # Debugging line
 
         expts = []
 
-        for i, r in enumerate(self.vars[self.labels[0]]):
-            for j, c in enumerate(self.vars[self.labels[1]]):
-                expts += [[r, c, lhs[i][j]]]
+        # depending on the number of factors
+        if numfactors == 3:
+            for i, r in enumerate(self.vars[self.labels[0]]):
+                for j, c in enumerate(self.vars[self.labels[1]]):
+                    expts += [[r, c, lhs[i][j]]]
+        elif numfactors == 4:
+            for i, r in enumerate(self.vars[self.labels[0]]):
+                for j, c in enumerate(self.vars[self.labels[1]]):
+                    for k, e in enumerate(self.vars[self.labels[2]]):
+                        expts += [[r, c, e, lhs[i][j][k]]]
+        else:
+            print("Number of factors not specified.")
+            return
                 
         print("Experiment data (expts):", expts)  # Debugging line
         print("Labels:", self.labels)  # Debugging line
