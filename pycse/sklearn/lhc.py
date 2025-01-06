@@ -61,7 +61,7 @@ class LatinSquare:
             for i, r in enumerate(self.vars[self.labels[0]]):
                 for j, c in enumerate(self.vars[self.labels[1]]):
                     for k, e in enumerate(self.vars[self.labels[2]]):
-                        expts += [[r, c, e, lhs[i][j][k]]]
+                        expts += [[r, c, e, lhs[i][j]]]
         else:
             print("Number of factors not specified.")
             return
