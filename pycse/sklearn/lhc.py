@@ -45,12 +45,18 @@ class LatinSquare:
         for i in range(1, len(levels)):
             levels = levels[1:] + levels[:1]
             lhs += [levels]
+            
+        print("Levels for third factor:", levels)  # Debugging line
+        print("Latin Hypercube matrix (lhs):", lhs)  # Debugging line
 
         expts = []
 
         for i, r in enumerate(self.vars[self.labels[0]]):
             for j, c in enumerate(self.vars[self.labels[1]]):
                 expts += [[r, c, lhs[i][j]]]
+                
+        print("Experiment data (expts):", expts)  # Debugging line
+        print("Labels:", self.labels)  # Debugging line
 
         df = pd.DataFrame(expts, columns=self.labels)
 
